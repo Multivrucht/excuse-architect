@@ -5,4 +5,4 @@ __pycache__/
 *.log
 .DS_Store
 /workspace/
-storage/stored_API_responses.txt
+/storage/

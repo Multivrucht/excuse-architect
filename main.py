@@ -1,10 +1,11 @@
 """
-Main entry point for running server
+Main server code, used for running server
 """
 
 import logging
-from flask import Flask, jsonify, request
+from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
+from pydantic import ValidationError
 from config import get_config
 from AI.gemini_call import generate_excuse
 from service.write_to_file import write_to_file
@@ -18,10 +19,10 @@ config = get_config()
 
 # Set log conf
 logging.basicConfig(
-    level=logging.WARNING, 
+    level=logging.INFO, 
     format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
     filename="storage/system_log.log",
-    filemode="w")
+    filemode="a")
 
 logger = logging.getLogger(__name__)
 
@@ -31,23 +32,23 @@ CORS(app) # Fix CORS later, sec flaw
 
 
 @app.errorhandler(Exception)
-def handle_unexpected(e):
+def handle_unexpected(e) -> tuple[Response, int]:
     print("Unhandled error")
     logger.critical(f"Undefined error broke the system {e}")
     return jsonify({"success": False, "error_message": "Internal error"}), 500
 
 
 @app.route("/api/submit", methods=["POST"])
-def get_input():
+def get_input() -> tuple[Response, int]:
     """ Main endpoint for the excuse generation, little too big atm, fix later """
     logger.info("/api/submit called")
     raw_data: dict = request.get_json()
 
     try:
         validated_req = ExcuseRequest(**raw_data) # Unpack dict into keyword
-    except (ValueError, KeyError) as e:
-        logger.warning(f"Validation failed: {e}")
-        return jsonify({"success": False, "error_message": "Client data not in required format"}), 400 # fix?
+    except ValidationError as e:
+        logger.warning(f"User input validation failed: {e}")
+        return jsonify({"success": False, "error_message": "Client data not in required format"}), 400
 
     try:
         if config.USE_MOCK_API:
@@ -69,8 +70,9 @@ def get_input():
         logger.error(f"Service failed: {e}")
         return jsonify({"success": False, "error_message": "Internal Error"}) 
 
-    return jsonify(response)
+    return jsonify(response), 200
 
 
 if __name__ == "__main__":
+    logger.info("Started Main Service..")
     app.run(debug=config.DEBUG, port=config.PORT)

@@ -7,7 +7,8 @@ class ExcuseRequest(BaseModel):
     jargon: int = Field(ge=0, le=5)
     passive: int = Field(ge=0, le=5)
     vagueness: int = Field(ge=0, le=5)
-
+    #_request_id: str ??
+    
     @field_validator("user_input")
     def clean_input(cls, input): # pylint: disable=no-self-argument
         """ Remove whitespaces"""
