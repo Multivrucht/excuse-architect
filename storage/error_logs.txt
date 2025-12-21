@@ -1,0 +1,14 @@
+{'date': '14-12-2025 15:09:53', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '14-12-2025 15:09:55', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '14-12-2025 15:09:56', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '14-12-2025 15:11:49', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '14-12-2025 23:26:53', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '20-12-2025 11:32:55', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '20-12-2025 11:34:18', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '20-12-2025 11:35:15', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '20-12-2025 11:37:53', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '20-12-2025 11:38:25', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '20-12-2025 11:40:09', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '20-12-2025 11:41:28', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '20-12-2025 11:44:38', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}
+{'date': '20-12-2025 11:45:01', 'operation': 'X', 'error_code': 400, 'error_message': 'API key not valid. Please pass a valid API key.'}

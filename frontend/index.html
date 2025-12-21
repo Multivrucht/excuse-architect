@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Excuse Architect</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <div class="container">
+        
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">The Excuse Architect</h1>
+            <p class="subtitle">Artificially Generated Excuses</p>
+        </header>
+
+        <main class="main-content">
+            
+            <!-- Input Section -->
+            <div class="input-group">
+                <input
+                    id="situation"
+                    type="text"
+                    required
+                    class="text-input"
+                    placeholder="Situation"
+                />
+                <label for="situation" class="floating-label">
+                    Describe your situation..
+                </label>
+            </div>
+
+            <!-- Parameters Grid -->
+            <div class="parameters-grid">
+                
+                <!-- Parameter 1: Blame Deflection -->
+                <div class="parameter">
+                    <div class="parameter-header">
+                        <label for="blame" class="parameter-label">Blame Deflection</label>
+                        <div class="parameter-value">
+                            <span id="val-blame" class="value-number">0</span> / 5
+                        </div>
+                    </div>
+                    <input type="range" id="blame" min="0" max="5" step="1" value="0" class="slider">
+                    <p class="parameter-hint">Responsibility redistribution</p>
+                </div>
+
+                <!-- Parameter 2: Corporate Jargon -->
+                <div class="parameter">
+                    <div class="parameter-header">
+                        <label for="jargon" class="parameter-label">Corporate Jargon</label>
+                        <div class="parameter-value">
+                            <span id="val-jargon" class="value-number">0</span> / 5
+                        </div>
+                    </div>
+                    <input type="range" id="jargon" min="0" max="5" step="1" value="0" class="slider">
+                    <p class="parameter-hint">Synergize the narrative</p>
+                </div>
+
+                <!-- Parameter 3: Passive Aggression -->
+                <div class="parameter">
+                    <div class="parameter-header">
+                        <label for="passive" class="parameter-label">Passive Aggressive</label>
+                        <div class="parameter-value">
+                            <span id="val-passive" class="value-number">0</span> / 5
+                        </div>
+                    </div>
+                    <input type="range" id="passive" min="0" max="5" step="1" value="0" class="slider">
+                    <p class="parameter-hint">Per my last email energy</p>
+                </div>
+
+                <!-- Parameter 4: Vagueness -->
+                <div class="parameter">
+                    <div class="parameter-header">
+                        <label for="vagueness" class="parameter-label">Vagueness</label>
+                        <div class="parameter-value">
+                            <span id="val-vagueness" class="value-number">0</span> / 5
+                        </div>
+                    </div>
+                    <input type="range" id="vagueness" min="0" max="5" step="1" value="0" class="slider">
+                    <p class="parameter-hint">Need-to-know basis only</p>
+                </div>
+
+            </div>
+
+            <!-- Action Button -->
+            <div class="action-area">
+                <button id="generate-btn" class="generate-btn">
+                    <span id="btn-text" class="btn-text">Fabricate Excuse</span>
+                    <span id="btn-hover-text" class="btn-hover-text">Generate</span>
+                    <div id="loading-spinner" class="loading-spinner">
+                        <div class="spinner-dot"></div>
+                        <div class="spinner-dot"></div>
+                        <div class="spinner-dot"></div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Error Feedback -->
+            <div id="error-box" class="error-box hidden"></div>
+
+            <!-- Output Area -->
+            <div id="result-box" class="result-box hidden">
+                <div class="result-quote">
+                    <p id="result-text" class="result-text"></p>
+                </div>
+                
+                <div class="result-actions">
+                    <button id="copy-btn" class="copy-btn">
+                        <span>Copy to Clipboard</span>
+                        <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
