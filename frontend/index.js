@@ -40,15 +40,13 @@ function setLoading(isLoading) {
         generateBtn.classList.add('cursor-not-allowed');
         btnText.classList.add('opacity-0');
         btnHoverText.classList.add('hidden');
-        loadingSpinner.classList.remove('hidden');
-        loadingSpinner.classList.add('flex');
+        loadingSpinner.classList.add('active');
     } else {
         generateBtn.disabled = false;
         generateBtn.classList.remove('cursor-not-allowed');
         btnText.classList.remove('opacity-0');
         btnHoverText.classList.remove('hidden');
-        loadingSpinner.classList.add('hidden');
-        loadingSpinner.classList.remove('flex');
+        loadingSpinner.classList.remove('active');
     }
 }
 
@@ -82,6 +80,7 @@ async function generateExcuse() {
         const passive = getSliderVal('passive');
         const vagueness = getSliderVal('vagueness');
 
+        
         // Await reply from the server
         const excuse = await submitData(situation, blame, jargon, passive, vagueness)
         

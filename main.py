@@ -32,23 +32,25 @@ CORS(app) # Fix CORS later, sec flaw
 
 
 @app.errorhandler(Exception)
-def handle_unexpected(e) -> tuple[Response, int]:
-    print("Unhandled error")
+def handle_unexpected(e: Exception) -> tuple[Response, int]:
+    print(f"TESTING: Unhandled error {e}")
     logger.critical(f"Undefined error broke the system {e}")
     return jsonify({"success": False, "error_message": "Internal error"}), 500
+
+@app.errorhandler(ValidationError)
+def handle_validation_error(e: ValidationError) -> tuple[Response, int]:
+    logger.warning(f"User input validation failed: {e}")
+    return jsonify({"success": False, "error_message": "Client data not in required format"}), 400
+
 
 
 @app.route("/api/submit", methods=["POST"])
 def get_input() -> tuple[Response, int]:
     """ Main endpoint for the excuse generation, little too big atm, fix later """
     logger.info("/api/submit called")
-    raw_data: dict = request.get_json()
 
-    try:
-        validated_req = ExcuseRequest(**raw_data) # Unpack dict into keyword
-    except ValidationError as e:
-        logger.warning(f"User input validation failed: {e}")
-        return jsonify({"success": False, "error_message": "Client data not in required format"}), 400
+    raw_data: dict = request.get_json()
+    validated_req = ExcuseRequest(**raw_data) # Unpack dict into keyword
 
     try:
         if config.USE_MOCK_API:
@@ -62,17 +64,13 @@ def get_input() -> tuple[Response, int]:
             response = { "success": True, "excuse": excuse }
 
     except (RateLimitError, AIServiceRequestError, AIServiceAvailabilityError) as e:
-        # Custom errors that are okay for users to see
+        # E has custom errors that are okay for users to see
         logger.error(f"Service failed: {e}")
-        return jsonify({"success": False, "error_message": str(e)}) 
-
-    except Exception as e:
-        logger.error(f"Service failed: {e}")
-        return jsonify({"success": False, "error_message": "Internal Error"}) 
+        return jsonify({"success": False, "error_message": str(e)}), e.status_code
 
     return jsonify(response), 200
 
 
 if __name__ == "__main__":
-    logger.info("Started Main Service..")
+    logger.info("Starting flask dev server.")
     app.run(debug=config.DEBUG, port=config.PORT)

@@ -315,7 +315,7 @@ body {
     justify-content: center;
 }
 
-.loading-spinner.active {
+.generate-btn .loading-spinner.active {
     display: flex;
 }
 
@@ -350,11 +350,6 @@ body {
     padding: 0.75rem 1rem;
     border: 1px solid #fecaca;
     border-radius: 0.25rem;
-}
-
-/* Result Box */
-.result-box {
-    margin-top: 1.5rem;
 }
 
 .result-quote {
