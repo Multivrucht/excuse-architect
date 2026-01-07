@@ -1,9 +1,12 @@
 import logging
+from flask import current_app
 from google import genai
 from google.genai import types, errors
+
 from excuse.excuse_gen_system_instructions import ExcuseGenMasterPrompt, ExcuseGenUserPrompt
 from excuse.schema import ExcuseRequest
 from service.exceptions import AIServiceAvailabilityError, AIServiceRequestError, RateLimitError
+
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +16,7 @@ def generate_excuse(request: ExcuseRequest):
     logger.info("API call started") 
 
     # The client gets the API key from the environment variable `GEMINI_API_KEY`
-    client = genai.Client()
+    client = genai.Client(api_key=current_app.config["GEMINI_API_KEY"])
 
     # Get master prompt
     sys_instructions = ExcuseGenMasterPrompt.BASE_TEMPLATE
