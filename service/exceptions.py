@@ -1,4 +1,3 @@
-
 class UserFacingErrors(Exception):
     """" User-facing errors that can be displayed safely to the user. """
     status_code: int = 500

@@ -1,17 +1,15 @@
 import os
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 class ConfigBaseClass:
-    """" Base class for setting env variable configurations. """
-
+    """ Base class for setting env variable configurations. """
     # API
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-    
     # Flask
     PORT = int(os.getenv("PORT", "5000"))
-
     # Testing
     DEBUG = False
     USE_MOCK_API = False
@@ -32,11 +30,11 @@ class ProdConfig(ConfigBaseClass):
 
 
 config_map = {
-    "dev": DevConfig,
-    "prod": ProdConfig
+    "dev": DevConfig(),
+    "prod": ProdConfig()
 }
 
 def get_config() -> ConfigBaseClass:
     """ Get ENV type, either: dev | prod """
     env = os.getenv("FLASK_ENV", "dev")
-    return config_map.get(env, DevConfig)
+    return config_map.get(env, DevConfig())

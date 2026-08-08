@@ -25,6 +25,7 @@ body {
 /* Container */
 .container {
     width: 100%;
+    /* max-height: fit-content; */
     max-width: 36rem;
     background-color: white;
     padding: 3rem;
