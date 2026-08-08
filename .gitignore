@@ -1,8 +1,14 @@
 .env
 .venv/
+.vscode
 __pycache__/
+.pytest_cache
 *.pyc
 *.log
 .DS_Store
+database/
 /workspace/
 /storage/
+/tests/
+local_repl_tests.sh
+run_tests.sh

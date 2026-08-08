@@ -126,9 +126,9 @@ situationInput.addEventListener('keypress', (e) => {
 
 
 // Post the user data to the backend API
-function submitData(text, blame, jargon, passive, vagueness) {
+async function submitData(text, blame, jargon, passive, vagueness) {
     console.log('User clicked generate');
-    return fetch('http://127.0.0.1:5000/api/submit', {
+    return await fetch('http://127.0.0.1:5000/submit', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ 
