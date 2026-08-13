@@ -9,8 +9,12 @@ from service.error_handlers import register_error_handlers
 from excuse.excuse_request_models import UserExcuseInput, UserRequestMetaData, ExcuseRequestInternal
 from service.exceptions import UserFacingErrors
 
+from pathlib import Path
 
 # Set log conf
+filepath = Path('storage/system_log.')
+filepath.parent.mkdir(parents=True, exist_ok=True) 
+    
 logging.basicConfig(
     level=logging.INFO, 
     format="%(asctime)s - %(levelname)s - %(name)s - %(message)s",
@@ -43,8 +47,8 @@ def create_app() -> Flask:
     if not app.config["USE_MOCK_API"]:
         provider.set_strategy(ProviderType.GEMINI)
 
-    # Set CORS, FIX LATER SEC FLAW
-    CORS(app)
+    # Set CORS, add later
+    # CORS(app)
 
     register_error_handlers(app, logger)
 
@@ -55,7 +59,7 @@ def create_app() -> Flask:
     def health() -> tuple[Response, int]:
         """ Test endpoint """
         logger.info("/health called")
-        return jsonify({"success:": True, 
+        return jsonify({"success": True, 
                         "message": "OK"}), 200
 
 
@@ -77,18 +81,18 @@ def create_app() -> Flask:
             validated_req = UserExcuseInput(**raw_data)
             
         except ValidationError as error:
-            # implement some failure logging..
+            """
+            implement some failure logging..
             
-            # attempt = AttemptedExcuseRequest(raw_request=raw_data, parsed_request=None, validation_errors=e.errors(), metadata=connection_data)
-            # save_attempt(attempt)
-            # logger.warning("validation failed %s", attempt.request_id)
+            attempt = AttemptedExcuseRequest(raw_request=raw_data, parsed_request=None, validation_errors=e.errors(), metadata=connection_data)
+            save_attempt(attempt)
+            logger.warning("validation failed %s", attempt.request_id)
             
-            # separate model here?
-            # internal = ExcuseRequestInternal(
-            #     excuse_request=None,
-            #     metadata=connection_data)
-            # print(f"failed: validation {internal}")
-            # raise error for further handling
+            separate model here?
+            internal = ExcuseRequestInternal(
+                excuse_request=None,
+                metadata=connection_data)
+            """
             raise error
         else:
             internal = ExcuseRequestInternal(
@@ -117,8 +121,10 @@ app = create_app()
 if __name__ == "__main__":
     # DEV server
     logger = logging.getLogger(__name__)
-    print("Running flask..")
-    #   print(f"App config: {app.config}")
-    logger.info("Starting Flask dev server")
+    print(f"Running flask in {app.config["ENV"]}, PORT:{app.config["PORT"]}")
+    print(f"MOCKAPI: {app.config["USE_MOCK_API"]}")
+    logger.info(f"Starting Flask. ENV: {app.config["ENV"]}")
+    # app.run(port=app.config["PORT"])
+    # app.run()
     app.run(debug=app.config["DEBUG"], port=app.config["PORT"])
     # app.config["FLASK_ENV"] = "dev"
